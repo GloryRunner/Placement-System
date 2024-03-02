@@ -119,7 +119,6 @@ local function update_pos(selected_object)
 		local shortest_dist
 		local shortest_collision_pos
 		local shortest_normal
-		local shortest_face_pos
 
 		for i = 1, #collisions do
 			local collision_position = collisions[i].collision_position
@@ -130,7 +129,6 @@ local function update_pos(selected_object)
 				shortest_dist = distance
 				shortest_collision_pos = collision_position
 				shortest_normal = collision_normal
-				shortest_face_pos = face_pos
 			end
 		end
 		
