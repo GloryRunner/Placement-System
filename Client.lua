@@ -15,14 +15,6 @@ local function get_root_parent(child)
 end
 
 local function get_collision_data(p0, p1, fp, fn)
-	local p0x = p0.X
-	local p0y = p0.Y
-	local p0z = p0.Z
-
-	local p1x = p1.X
-	local p1y = p1.Y
-	local p1z = p1.Z
-
 	local fpx = fp.X
 	local fpy = fp.Y
 	local fpz = fp.Z
@@ -31,9 +23,8 @@ local function get_collision_data(p0, p1, fp, fn)
 	local fny = fn.Y
 	local fnz = fn.Z
 
-	local t = (-fnx * fpx - fny * fpy - fnz * fpz + fnx * p0x + fny * p0y + fnz * p0z) /
-		(fnx * p0x + fny * p0y + fnz * p0z - fnx * p1x - fny * p1y - fnz * p1z)
-
+	local t = (-fnx * fpx - fny * fpy - fnz * fpz + fn:Dot(p0)) / (fn:Dot(p0) - fn:Dot(p1))
+	
 	-- Filter out extraneous solutions
 	if t < 0 or t > 1 then
 		return {
@@ -47,7 +38,6 @@ local function get_collision_data(p0, p1, fp, fn)
 			collision_position = p0:Lerp(p1, t),
 			face_position = fp
 		}
-
 	end
 end
 
